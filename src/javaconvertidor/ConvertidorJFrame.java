@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,14 +74,15 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         }
         
    }
+    
     //optiene una lista de las monedas disponibles para convertir
-    public void getMonedasAPI()
+    private void getMonedasAPI()
     {
         JPanel panel = new JPanel(new GridBagLayout());
         JComboBox comboBox = new JComboBox(); 
         Map<String, String> map = new HashMap<>();
         try {
-            // Setting URL
+        // Setting URL
         String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/codes";
 
         // Making Request
@@ -136,6 +138,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                     if(event.getStateChange() == ItemEvent.SELECTED)
                     {
                         System.out.println(map.get(event.getItem().toString()));
+                        getTasadeCambio(map.get(event.getItem().toString()));
                     }
                 }
             });
@@ -153,8 +156,66 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
             Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static boolean equalString(String sb1, String sb2) {
+    private double getTasadeCambio(String vMoneda)
+    {
+        double vTasa = 0.0;
+        try {
+            
+            // Setting URL
+            //String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/latest/"+vMoneda;
+            String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/pair/"+vMoneda+"/EUR/100";
+            
+            // Making Request
+            URL url = new URL(url_str);
+            HttpURLConnection request = (HttpURLConnection) url.openConnection();
+            request.connect();
+            
+            // Convert to JSON
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+            JsonObject jsonobj = root.getAsJsonObject();
+            
+            // Accessing object
+            String req_result = jsonobj.get("result").getAsString();
+            if(equalString(req_result, "success"))
+            {
+                /*
+                Set<String> keyset = jsonobj.keySet();
+                Iterator<String> keys = keyset.iterator(); 
+
+                while(keys.hasNext()){
+                    String key = keys.next();
+                    
+                    if (equalString(key, "conversion_rates"))
+                    {
+                        JsonObject value = (JsonObject) jsonobj.get(key);
+                        
+                        System.out.println( key +" : " + value);
+                        
+                        double valorTasa = value.get("DOP").getAsDouble(); 
+                        System.out.println( vMoneda +" : " + valorTasa);
+
+                    }
+                }
+                */
+                Set<String> keyset = jsonobj.keySet();
+                Iterator<String> keys = keyset.iterator(); 
+
+                if(keys.hasNext()){
+                    System.out.println(vMoneda + " 100 : " + jsonobj.get("conversion_rate").getAsDouble());
+                    System.out.println( "TOTAL EUR : " + jsonobj.get("conversion_result").getAsDouble());
+                    }
+                }
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vTasa;
+    }
+    //esta funcion compara dos tipos de Strings y retorna una boolean
+    private static boolean equalString(String sb1, String sb2) {
     boolean vReturn = true;
     int len = sb1.length();
     if (sb1.length() == sb2.length())
