@@ -39,30 +39,31 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
      */
     public ConvertidorJFrame() {
         initComponents();
+        //Esta propiedad forza a centrar la pantalla inicial 
         setLocationRelativeTo(null);
         
     }
    
-    
+    //funcion que llena el menu de las opciones de conversion
     private void loadConvertidores()
     {
         
-        DefaultComboBoxModel<NewEnum_Test> cModel = new DefaultComboBoxModel<>(
-          NewEnum_Test.values());
-        JComboBox<NewEnum_Test> combo = new JComboBox<>(cModel);
+        DefaultComboBoxModel<Enum_Menu> cModel = new DefaultComboBoxModel<>(
+          Enum_Menu.values());
+        JComboBox<Enum_Menu> combo = new JComboBox<>(cModel);
         jComboBox_Convertidor.setModel(cModel);
         jComboBox_Convertidor.add(combo);
         
     }
     
     //Convertidor Menu
-    private void cargarMenu(){
+    private void SeleccionMenu(){
         JPanel panel = new JPanel(new GridBagLayout());
         //NewEnum_Test ret;
         //ret = NewEnum_Test.valueOf(Convertidor_Name); 
         JComboBox comboBox = new JComboBox(); 
         //switch (ret.getIndex())
-        NewEnum_Test enumValue = NewEnum_Test.valueOf(NewEnum_Test.class, jComboBox_Convertidor.getSelectedItem().toString());
+        Enum_Menu enumValue = Enum_Menu.valueOf(Enum_Menu.class, jComboBox_Convertidor.getSelectedItem().toString());
         //System.err.println("Index: " + enumValue.getIndex());
         
         switch (enumValue.getIndex())
@@ -201,7 +202,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                         // The selected element is a "ComboModel" instance, just cast it to the correct type
                         //String test = jComboBox_Convertidor.getSelectedItem().toString();
                         //load_Con_Sel(test);
-                        cargarMenu();
+                        SeleccionMenu();
                     }
                 }
             }
