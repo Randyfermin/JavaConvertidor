@@ -8,33 +8,39 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.awt.GridBagLayout;
-import java.awt.List;
+import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import org.json.JSONException;
 /**
  *
  * @author hp
  */
 public class ConvertidorJFrame extends javax.swing.JFrame {
+    private final Map<String, String> map = new TreeMap<>();
+    
     /**
      * Creates new form ConvertidorJFrame
      */
@@ -67,9 +73,10 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 {
                     comboBox.addItem(longitud.label);
                 }
-                JOptionPane.showMessageDialog(null, comboBox, menu_Seleccionado,
-                JOptionPane.QUESTION_MESSAGE);
                 panel.add(comboBox);
+                JOptionPane.showMessageDialog(null, panel, menu_Seleccionado,
+                JOptionPane.QUESTION_MESSAGE);
+                
             }
         }
         
@@ -78,9 +85,54 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
     //optiene una lista de las monedas disponibles para convertir
     private void getMonedasAPI()
     {
-        JPanel panel = new JPanel(new GridBagLayout());
-        JComboBox comboBox = new JComboBox(); 
-        Map<String, String> map = new HashMap<>();
+        JPanel panel = new JPanel(new GridLayout(6, 2));
+        JComboBox comboBoxBase = new JComboBox(); 
+        JComboBox comboBoxTarget = new JComboBox(); 
+        JTextField customTypeField = new JTextField("", 20);
+        
+        customTypeField.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+               char vKey = e.getKeyChar();
+
+               if(!(Character.isDigit(vKey) || (vKey == KeyEvent.VK_MINUS) || (vKey == KeyEvent.VK_PERIOD) || (vKey == KeyEvent.VK_BACK_SPACE) || (vKey == KeyEvent.VK_DELETE) || (vKey == KeyEvent.VK_ENTER)))
+                {
+                    e.consume();
+                }
+                else
+                {
+
+                    if (vKey == KeyEvent.VK_ENTER)
+                        {
+                            comboBoxTarget.requestFocus();
+                            comboBoxTarget.grabFocus();
+                        }
+
+                    if ((vKey == KeyEvent.VK_PERIOD) && (customTypeField.getText().contains(".")))
+                        {
+                            e.consume();
+                        }
+
+                    int s = customTypeField.getText().indexOf(".");
+                    String vS = customTypeField.getText().substring(s+1, customTypeField.getText().length());
+
+
+                    if ((vS.length() >= 2) && (customTypeField.getText().contains(".")))
+                        {
+                               e.consume();
+                        }
+                            //allow the minus char if the key is pressed and not in text
+                    if ((vKey == KeyEvent.VK_MINUS) && (customTypeField.getText().contains("-")) && !(customTypeField.getText().isEmpty()))
+                        {
+                            e.consume();
+                        }
+                }
+
+            }
+        });
+        
         try {
         // Setting URL
         String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/codes";
@@ -130,40 +182,60 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
 
             
             Object[] keys1 = map.keySet().toArray();
-            ComboBoxModel model = new DefaultComboBoxModel(keys1);
-            comboBox.setModel(model);
-            comboBox.addItemListener((ItemEvent event) -> {
+            ComboBoxModel modelBase = new DefaultComboBoxModel(keys1);
+            ComboBoxModel modelTarget = new DefaultComboBoxModel(keys1);
+            comboBoxBase.setModel(modelBase);
+            comboBoxTarget.setModel(modelTarget);
+            
+            comboBoxBase.addItemListener((ItemEvent event) -> {
                 if(event.getID() == ItemEvent.ITEM_STATE_CHANGED)
                 {
                     if(event.getStateChange() == ItemEvent.SELECTED)
                     {
-                        System.out.println(map.get(event.getItem().toString()));
-                        getTasadeCambio(map.get(event.getItem().toString()));
+                        
+                        
                     }
                 }
             });
-            JOptionPane.showMessageDialog(null, comboBox, "MONEDA",
+            
+            panel.add(new JLabel("ELIGE LA MONEDA QUE DESEAS CONVERTIR"));
+            panel.add(comboBoxBase);
+            panel.add(new JLabel("MONTO TOTAL A CAMBIAR"));
+            panel.add(customTypeField);
+            panel.add(new JLabel("ELIGE LA MONEDA A LA QUE DESEAS CONVERTIR "));
+            panel.add(comboBoxTarget);
+            JOptionPane.showMessageDialog(null, panel, "MONEDA",
             JOptionPane.QUESTION_MESSAGE);
-            panel.add(comboBox);
+            if (customTypeField.getText().isBlank())
+            {
+                customTypeField.setText("1.00");
+                System.out.println("Text Empty");
+            }
+            
+            convertirMoneda(comboBoxBase.getSelectedItem().toString(), customTypeField.getText(),
+                    comboBoxTarget.getSelectedItem().toString());
         }
         else
         {
-            JOptionPane.showMessageDialog(null, req_result, "MONEDA",
-        JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACCEDER AL SERVICIO\n FAVOR INTENTE DE NUEVO", "MONEDA",
+        JOptionPane.ERROR_MESSAGE);
         }
         
         } catch (JSONException | IOException ex) {
             Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private double getTasadeCambio(String vMoneda)
+    
+    
+    private void convertirMoneda(String vMonedaBase, String vMonto, String vMonedaTarget)
     {
-        double vTasa = 0.0;
+        double money = Double.parseDouble(vMonto);
+        DecimalFormat twoPlaces = new DecimalFormat("0.00");
+        
         try {
             
             // Setting URL
-            //String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/latest/"+vMoneda;
-            String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/pair/"+vMoneda+"/EUR/100";
+            String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/pair/"+map.get(vMonedaBase)+"/" + map.get(vMonedaTarget) + "/" + vMonto;
             
             // Making Request
             URL url = new URL(url_str);
@@ -179,40 +251,15 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
             String req_result = jsonobj.get("result").getAsString();
             if(equalString(req_result, "success"))
             {
-                /*
-                Set<String> keyset = jsonobj.keySet();
-                Iterator<String> keys = keyset.iterator(); 
-
-                while(keys.hasNext()){
-                    String key = keys.next();
-                    
-                    if (equalString(key, "conversion_rates"))
-                    {
-                        JsonObject value = (JsonObject) jsonobj.get(key);
-                        
-                        System.out.println( key +" : " + value);
-                        
-                        double valorTasa = value.get("DOP").getAsDouble(); 
-                        System.out.println( vMoneda +" : " + valorTasa);
-
-                    }
-                }
-                */
-                Set<String> keyset = jsonobj.keySet();
-                Iterator<String> keys = keyset.iterator(); 
-
-                if(keys.hasNext()){
-                    System.out.println(vMoneda + " 100 : " + jsonobj.get("conversion_rate").getAsDouble());
-                    System.out.println( "TOTAL EUR : " + jsonobj.get("conversion_result").getAsDouble());
-                    }
-                }
+                JOptionPane.showMessageDialog(null, twoPlaces.format(money) + " " + vMonedaBase + "\n = \n " + twoPlaces.format(jsonobj.get("conversion_result").getAsDouble())+ " " + vMonedaTarget, "MONEDA",
+        JOptionPane.INFORMATION_MESSAGE);
+            }
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ConvertidorJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return vTasa;
     }
     //esta funcion compara dos tipos de Strings y retorna una boolean
     private static boolean equalString(String sb1, String sb2) {
@@ -243,10 +290,11 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
         jButton_MONEDA = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jButton_LONGITUD = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -266,12 +314,29 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("SELECCIONE UNA OPCION DE CONVERSION");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 504, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 262, Short.MAX_VALUE)
+        );
+
+        jToolBar1.setRollover(true);
+
         jButton_MONEDA.setText("MONEDA");
         jButton_MONEDA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_MONEDAActionPerformed(evt);
             }
         });
+        jToolBar1.add(jButton_MONEDA);
+
+        jButton4.setText("CAPACIDAD");
+        jToolBar1.add(jButton4);
 
         jButton_LONGITUD.setText("LONGITUD");
         jButton_LONGITUD.addActionListener(new java.awt.event.ActionListener() {
@@ -279,51 +344,16 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 jButton_LONGITUDActionPerformed(evt);
             }
         });
+        jToolBar1.add(jButton_LONGITUD);
 
         jButton3.setText("MASA");
-
-        jButton4.setText("CAPACIDAD");
+        jToolBar1.add(jButton3);
 
         jButton5.setText("SUPERFICIE");
+        jToolBar1.add(jButton5);
 
         jButton6.setText("VOLUMEN");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_MONEDA)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_LONGITUD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_MONEDA)
-                    .addComponent(jButton_LONGITUD)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap(228, Short.MAX_VALUE))
-        );
+        jToolBar1.add(jButton6);
 
         jMenu1.setText("Convertidor");
 
@@ -369,7 +399,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -377,6 +408,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -460,5 +493,6 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
