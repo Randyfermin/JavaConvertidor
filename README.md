@@ -10,4 +10,7 @@
 <p align="left">
     <img src="https://img.shields.io/github/stars/Randyfermin?style=social" alt="GitHub Org's stars">
 </p>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd29921a6ded8a63c232d6e5ad2e6e44840aaea5
