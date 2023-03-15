@@ -89,7 +89,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         }
     }
     //optiene una lista de las monedas disponibles para convertir
-    private void buildUI(String menu_Seleccionado)
+  private void buildUI(String menu_Seleccionado)
     {
         JPanel panel = new JPanel(new GridLayout(7, 2));
         JComboBox comboBoxBase = new JComboBox(); 
