@@ -37,7 +37,3 @@
 *[Licencia](#licencia)
 
 *[Conclusión](#conclusión)
-<<<<<<< HEAD
-
-=======
->>>>>>> dd29921a6ded8a63c232d6e5ad2e6e44840aaea5
