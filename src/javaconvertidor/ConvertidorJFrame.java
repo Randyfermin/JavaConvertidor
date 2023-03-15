@@ -12,8 +12,6 @@ import static Moneda.MonedasAPI.getTasaCambio;
 import static Moneda.MonedasAPI.getTiposMonedas;
 import Superficie.Enum_Superficie;
 import Volumen.Enum_Volumen;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -25,7 +23,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,21 +32,17 @@ import javax.imageio.ImageIO;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.OverlayLayout;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 /**
  *
  * @author hp
  */
 public class ConvertidorJFrame extends javax.swing.JFrame {
+    
     private Map<String, String> map = new TreeMap<>();
     Font mainFont = new Font("Arial", Font.BOLD, 18);
     public static File imgFile = new File(System.getProperty("user.dir")+"\\src\\imagenes\\challengeImage.jpg");
