@@ -33,61 +33,16 @@ public class MonedasAPI {
     
     
     private static final Map<String, String> map = new TreeMap<>(); 
-    //se conecta al servidor web y descarga las monedas soportadas por el API
+    
+    //
     public static Map getTiposMonedas()
     {
-         
-        try {  
-            // Setting URL
-            String url_str = "https://v6.exchangerate-api.com/v6/43e5c949c02f4420c7f77f9e/codes";
-
-            // Making Request
-            URL url;
-            url = new URL(url_str);
-            HttpURLConnection request = (HttpURLConnection) url.openConnection();
-            request.connect();
-
-            // Convert to JSON
-            JsonParser jp = new JsonParser();
-            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-            JsonObject jsonobj = root.getAsJsonObject();
-
-            // Accessing object
-            String req_result = jsonobj.get("result").getAsString();
-            //JSONObject jsonObject = new JSONObject();
-
-            if(Utilidades.equalString(req_result, "success"))
-            {
-                Set<String> keyset = jsonobj.keySet();
-                for (String key : keyset) {
-                    Object value = jsonobj.get(key);
-                    if (Utilidades.equalString(key, "supported_codes"))
-                    {
-                        //System.out.println( key +" : " + value);
-
-                        //split string delimited by comma
-                        String[] stringarray = value.toString().replace("[", "").replace("]", "").replace("\"", "").split(",");    //we can use dot, whitespace, any character
-                        //iterate over string array
-                        for(int i=0; i< stringarray.length; i++)
-                        {
-                            //prints the tokens  
-                            map.put(stringarray[i+1]+"(" + stringarray[i] + ")", stringarray[i]);
-                            //System.out.println(stringarray[i] + " --> " + stringarray[i+1]); 
-                            i++;
-                            
-                        }  
-                    }
-                }
-            }else
-            {
-                return null;
-            }
-        }   catch (MalformedURLException ex) {
-            Logger.getLogger(MonedasAPI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MonedasAPI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        map.put("Canadian Dollar (CAD)", "CAD");
+        map.put("Swiss Franc (CHF)", "CHF");
+        map.put("Dominican Peso (DOP)", "DOP");
+        map.put("Euro (EUR)", "EUR");
+        map.put("Japanese Yen (JPY)", "JPY");
+        map.put("United States Dollar (USD)", "USD"); 
     return map;
     }
     

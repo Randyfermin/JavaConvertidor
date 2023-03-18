@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public enum Enum_Capacidad {
 
-//Capacidad
+    //Capacidad
     kl("kilolitro", 1, 1000),
     hl("hectolitro", 2, 100),
     dal("decalitro", 3, 10),
@@ -24,10 +24,11 @@ public enum Enum_Capacidad {
     cl("centilitro", 6, 0.01),
     ml("mililitro", 7, 0.001);
     
+    //almacenamos los tipos de datos en un objeto Map para poder acceder a ellos segun el dato requerido
+    //el objeto map es una coleccion de datos para llenar los combobox
     private static final Map<String, Enum_Capacidad> BY_LABEL = new HashMap<>();
     private static final Map<Integer, Enum_Capacidad> BY_ATOMIC_NUMBER = new HashMap<>();
     private static final Map<Double, Enum_Capacidad> BY_ATOMIC_WEIGHT = new HashMap<>();
-    
     private final static Map<String, String> map = new TreeMap<>();
     
     static {

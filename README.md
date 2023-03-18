@@ -5,7 +5,7 @@
     <img src="https://github.com/Randyfermin/JavaConvertidor/blob/main/src/imagenes/challengeImage.jpg?raw=true">
 </p>
 <p align="left">
-    <img src="https://img.shields.io/github/license/dropbox/dropbox-sdk-java">
+    <img src="https://img.shields.io/github/license/Randyfermin">
     <img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
 </p>
 
