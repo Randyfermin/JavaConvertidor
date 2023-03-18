@@ -12,11 +12,6 @@
 <p align="left">
     <img src="https://img.shields.io/github/stars/Randyfermin?style=social" alt="GitHub Org's stars">
 </p>
-##Índice
-
-*[Título e imagen de portada](#Título-e-imagen-de-portada)
-
-*[Insignias](#insignias)
 
 *[Índice](#índice)
 
@@ -37,7 +32,3 @@
 *[Licencia](#licencia)
 
 *[Conclusión](#conclusión)
-<<<<<<< HEAD
-
-=======
->>>>>>> dd29921a6ded8a63c232d6e5ad2e6e44840aaea5
