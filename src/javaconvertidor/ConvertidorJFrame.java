@@ -302,7 +302,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jButton_VOLUMEN = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
+        jButton_CERRAR = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -341,14 +341,18 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         IconLabel.setMinimumSize(new java.awt.Dimension(800, 370));
         IconLabel.setPreferredSize(new java.awt.Dimension(800, 370));
 
-        jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "SELECCIONE UNA OPCION DE CONVERSION"));
+        jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "SELECCIONE UNA OPCION DE CONVERSION", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 14))); // NOI18N
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
+        jButton_MONEDA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-billetes-50.png"))); // NOI18N
         jButton_MONEDA.setText("MONEDA");
-        jButton_MONEDA.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_MONEDA.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_MONEDA.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_MONEDA.setToolTipText("CAMBIO DIVISAS");
+        jButton_MONEDA.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_MONEDA.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_MONEDA.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_MONEDA.setPreferredSize(new java.awt.Dimension(100, 80));
+        jButton_MONEDA.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_MONEDA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_MONEDAActionPerformed(evt);
@@ -357,10 +361,14 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_MONEDA);
         jToolBar1.add(jSeparator1);
 
+        jButton_LONGITUD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-cinta-métrica-de-costura-50.png"))); // NOI18N
         jButton_LONGITUD.setText("LONGITUD");
-        jButton_LONGITUD.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_LONGITUD.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_LONGITUD.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_LONGITUD.setToolTipText("CONVERTIR LONGITUD");
+        jButton_LONGITUD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_LONGITUD.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_LONGITUD.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_LONGITUD.setPreferredSize(new java.awt.Dimension(100, 80));
+        jButton_LONGITUD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_LONGITUD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LONGITUDActionPerformed(evt);
@@ -369,11 +377,15 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_LONGITUD);
         jToolBar1.add(jSeparator2);
 
+        jButton_MASA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-peso-50.png"))); // NOI18N
         jButton_MASA.setText("MASA");
-        jButton_MASA.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_MASA.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_MASA.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_MASA.setToolTipText("CONVERTIR MASA");
+        jButton_MASA.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_MASA.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_MASA.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_MASA.setPreferredSize(new java.awt.Dimension(100, 80));
         jButton_MASA.setRequestFocusEnabled(false);
+        jButton_MASA.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_MASA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_MASAActionPerformed(evt);
@@ -382,10 +394,14 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_MASA);
         jToolBar1.add(jSeparator3);
 
+        jButton_CAPACIDAD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-volumen-50.png"))); // NOI18N
         jButton_CAPACIDAD.setText("CAPACIDAD");
-        jButton_CAPACIDAD.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_CAPACIDAD.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_CAPACIDAD.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_CAPACIDAD.setToolTipText("CONVERTIR CAPACIDAD");
+        jButton_CAPACIDAD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_CAPACIDAD.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_CAPACIDAD.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_CAPACIDAD.setPreferredSize(new java.awt.Dimension(100, 80));
+        jButton_CAPACIDAD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_CAPACIDAD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CAPACIDADActionPerformed(evt);
@@ -394,11 +410,15 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_CAPACIDAD);
         jToolBar1.add(jSeparator4);
 
+        jButton_SUPERFICIE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-superficie-50.png"))); // NOI18N
         jButton_SUPERFICIE.setText("SUPERFICIE");
-        jButton_SUPERFICIE.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_SUPERFICIE.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_SUPERFICIE.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_SUPERFICIE.setToolTipText("CONVERTIR SUPERFICIE");
+        jButton_SUPERFICIE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_SUPERFICIE.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_SUPERFICIE.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_SUPERFICIE.setPreferredSize(new java.awt.Dimension(100, 80));
         jButton_SUPERFICIE.setRequestFocusEnabled(false);
+        jButton_SUPERFICIE.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_SUPERFICIE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SUPERFICIEActionPerformed(evt);
@@ -407,10 +427,14 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_SUPERFICIE);
         jToolBar1.add(jSeparator5);
 
+        jButton_VOLUMEN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-tesseract-50.png"))); // NOI18N
         jButton_VOLUMEN.setText("VOLUMEN");
-        jButton_VOLUMEN.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton_VOLUMEN.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton_VOLUMEN.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton_VOLUMEN.setToolTipText("CONVERTIR VOLUMEN");
+        jButton_VOLUMEN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_VOLUMEN.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_VOLUMEN.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_VOLUMEN.setPreferredSize(new java.awt.Dimension(100, 80));
+        jButton_VOLUMEN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton_VOLUMEN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_VOLUMENActionPerformed(evt);
@@ -419,19 +443,20 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton_VOLUMEN);
         jToolBar1.add(jSeparator6);
 
-        jButton1.setText("CERRAR");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setMaximumSize(new java.awt.Dimension(100, 50));
-        jButton1.setMinimumSize(new java.awt.Dimension(100, 50));
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 50));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_CERRAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-apagar-50.png"))); // NOI18N
+        jButton_CERRAR.setText("CERRAR");
+        jButton_CERRAR.setToolTipText("CERRAR EL SISTEMA");
+        jButton_CERRAR.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_CERRAR.setMaximumSize(new java.awt.Dimension(100, 80));
+        jButton_CERRAR.setMinimumSize(new java.awt.Dimension(100, 80));
+        jButton_CERRAR.setPreferredSize(new java.awt.Dimension(100, 80));
+        jButton_CERRAR.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton_CERRAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_CERRARActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(jButton_CERRAR);
 
         javax.swing.GroupLayout jPanel_MainLayout = new javax.swing.GroupLayout(jPanel_Main);
         jPanel_Main.setLayout(jPanel_MainLayout);
@@ -450,8 +475,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(IconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -701,10 +726,10 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         buildUI(jButton_VOLUMEN.getText());
     }//GEN-LAST:event_jButton_VOLUMENActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_CERRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CERRARActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_CERRARActionPerformed
 
     /**
      * @param args the command line arguments
@@ -741,8 +766,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_CAPACIDAD;
+    private javax.swing.JButton jButton_CERRAR;
     private javax.swing.JButton jButton_LONGITUD;
     private javax.swing.JButton jButton_MASA;
     private javax.swing.JButton jButton_MONEDA;
