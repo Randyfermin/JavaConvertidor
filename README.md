@@ -39,6 +39,20 @@
 
 ## Características de la aplicación y demostración
 
+
+
+https://user-images.githubusercontent.com/48891637/226209077-5a1972d3-12bd-4b0e-8697-fdbc7ecc20e6.mp4
+
+
+
+https://user-images.githubusercontent.com/48891637/226209079-237b889e-fe59-4d5f-a523-baa92fe5f329.mp4
+
+
+
+https://user-images.githubusercontent.com/48891637/226209082-6d1f6bf3-461a-484d-b5e7-5c04ef23ce49.mp4
+
+
+
 ## :hammer:Funcionalidades del proyecto
 
 - `Funcionalidad 1`: Convertir Divisas, las Divisas soportadas: Canadian Dollar (CAD), Swiss Franc (CHF), Dominican Peso (DOP), Euro (EUR), Japanese Yen (JPY) y United States Dollar (USD).
