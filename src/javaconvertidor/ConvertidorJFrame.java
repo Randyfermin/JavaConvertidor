@@ -807,6 +807,11 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
                 }
             }
+            else
+                {
+                    JOptionPane.showMessageDialog(null, "LA API KEY INGRESADA NO ES VALIDA", "REGISTRANDO NUEVA API KEY",
+                    JOptionPane.ERROR_MESSAGE);
+                }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
