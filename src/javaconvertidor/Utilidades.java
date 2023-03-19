@@ -4,12 +4,14 @@
  */
 package javaconvertidor;
 
+import java.awt.Font;
+
 /**
  *
  * @author hp
  */
 public class Utilidades {
-
+    
     //esta funcion compara dos tipos de Strings y retorna una boolean
     public static boolean equalString(String sb1, String sb2) {
         boolean vReturn = true;

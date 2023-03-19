@@ -4,11 +4,15 @@
  */
 package Superficie;
 
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 /**
  *
  * @author hp
@@ -65,7 +69,19 @@ public enum Enum_Superficie {
     }
     
     public static void ConvertirSuperficie(String medidaBase, double vTotal, String medidaTarget){
-            DecimalFormat twoPlaces = new DecimalFormat("0.00");
+                      
+            JPanel panel = new JPanel(new GridLayout(3, 2));
+            Font mainFont = new Font("Arial", Font.BOLD, 18);
+            //JLabel tasaCambioTitle = new JLabel("TASA DE CAMBIO ACTUAL: 1.00");
+            JLabel comboBoxBaseTitle = new JLabel();
+            JLabel comboBoxTargetTitle = new JLabel();
+            JLabel customTypeFieldTitle = new JLabel();
+        
+            //font y Size set  
+            comboBoxBaseTitle.setFont(mainFont);
+            comboBoxTargetTitle.setFont(mainFont);
+            customTypeFieldTitle.setFont(mainFont);
+            
             double valorBase, valorTarget;
             Enum_Superficie enumValorBase = Enum_Superficie.valueOf(Enum_Superficie.class, comboBoxValues().get(medidaBase).toString());
             valorBase = enumValorBase.atomicWeight;
@@ -73,7 +89,15 @@ public enum Enum_Superficie {
             Enum_Superficie enumValorTarget = Enum_Superficie.valueOf(Enum_Superficie.class, comboBoxValues().get(medidaTarget).toString());
             valorTarget = enumValorTarget.atomicWeight;
             
-            JOptionPane.showMessageDialog(null, "Total :" + twoPlaces.format(vTotal * valorBase * (1/valorTarget)) + " " + medidaTarget, "SUPERFICIE",
+            
+                customTypeFieldTitle.setText((vTotal ) + " " + comboBoxValues().get(medidaBase).toString().toUpperCase() + "(" + medidaBase.toUpperCase() + ")" );
+            panel.add(customTypeFieldTitle);
+                comboBoxBaseTitle.setText("IGUAL A: ");
+            panel.add(comboBoxBaseTitle);
+                comboBoxTargetTitle.setText((vTotal * valorBase * (1/valorTarget)) + " " + comboBoxValues().get(medidaTarget).toString().toUpperCase() + "(" + medidaTarget.toUpperCase() + ")" );
+            panel.add(comboBoxTargetTitle);
+            
+                        JOptionPane.showMessageDialog(null, panel, "SUPERFICIE: RESULTADO OBTENIDO",
         JOptionPane.INFORMATION_MESSAGE);
     }
 }

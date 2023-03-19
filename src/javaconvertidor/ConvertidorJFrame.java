@@ -7,9 +7,12 @@ package javaconvertidor;
 import Capacidad.Enum_Capacidad;
 import Longitud.Enum_Longitud;
 import Masa.Enum_Masa;
+import static Moneda.MonedasAPI.SetAPI_KEYPropertyValues;
 import static Moneda.MonedasAPI.convertirMoneda;
+import static Moneda.MonedasAPI.getAPI_KEY;
 import static Moneda.MonedasAPI.getTasaCambio;
 import static Moneda.MonedasAPI.getTiposMonedas;
+import static Moneda.MonedasAPI.testAPI_KEY;
 import Superficie.Enum_Superficie;
 import Volumen.Enum_Volumen;
 import java.awt.Dimension;
@@ -43,8 +46,9 @@ import javax.swing.JTextField;
  */
 public class ConvertidorJFrame extends javax.swing.JFrame {
     
-    private Map<String, String> map = new TreeMap<>();
     Font mainFont = new Font("Arial", Font.BOLD, 18);
+    
+    private Map<String, String> map = new TreeMap<>();
     public static File imgFile = new File(System.getProperty("user.dir")+"\\src\\imagenes\\challengeImage.jpg");
     public static URL imgFilePath = null;
     /**
@@ -311,6 +315,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -475,8 +480,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(IconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -498,6 +503,13 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel13.setText("https://www.exchangerate-api.com/terms");
 
+        jButton1.setText("CAMBIAR API KEY");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -510,7 +522,12 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(79, 79, 79))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -526,9 +543,11 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ambiente de Desarrollo"));
@@ -644,12 +663,13 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -665,8 +685,8 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -685,7 +705,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_Main, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jPanel_Main, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -698,7 +718,35 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
 
     private void jButton_MONEDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_MONEDAActionPerformed
         // TODO add your handling code here:
-        buildUI(jButton_MONEDA.getText());
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+        JLabel API_KEY_Title = new JLabel("INGRESE SU NUEVA EXCHANGE RATE API KEY");
+        JTextField API_KEY_TypeField = new JTextField("", 12);
+        API_KEY_Title.setFont(mainFont);
+        API_KEY_TypeField.setFont(mainFont);
+        panel.add(API_KEY_Title);
+        panel.add(API_KEY_TypeField);
+        if (getAPI_KEY().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, panel, "REGISTRANDO NUEVA API KEY",
+        JOptionPane.QUESTION_MESSAGE);
+        
+            if (!API_KEY_TypeField.getText().isBlank())
+                {
+                    if(testAPI_KEY(API_KEY_TypeField.getText()))
+                    {
+                        SetAPI_KEYPropertyValues(API_KEY_TypeField.getText(), "api_key");
+                        buildUI(jButton_MONEDA.getText());
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(null, "LA API KEY INGRESADA NO ES VALIDA", "REGISTRANDO NUEVA API KEY",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+        }
+        else
+        {
+            buildUI(jButton_MONEDA.getText());
+        }
     }//GEN-LAST:event_jButton_MONEDAActionPerformed
 
     private void jButton_LONGITUDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LONGITUDActionPerformed
@@ -730,6 +778,37 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton_CERRARActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+        JLabel API_KEY_Title = new JLabel("INGRESE SU NUEVA EXCHANGE RATE API KEY");
+        JTextField API_KEY_TypeField = new JTextField("", 12);
+        API_KEY_Title.setFont(mainFont);
+        API_KEY_TypeField.setFont(mainFont);
+        API_KEY_TypeField.setText(getAPI_KEY());
+        panel.add(API_KEY_Title);
+        panel.add(API_KEY_TypeField);
+        
+        
+        JOptionPane.showMessageDialog(null, panel, "CAMBIANDO API KEY",
+    JOptionPane.QUESTION_MESSAGE);
+
+        if (!API_KEY_TypeField.getText().isBlank())
+            {
+                if(testAPI_KEY(API_KEY_TypeField.getText()))
+                {
+                    SetAPI_KEYPropertyValues(API_KEY_TypeField.getText(), "api_key");
+                    JOptionPane.showMessageDialog(null, "LA API KEY INGRESADA FUE GUARDADA CON EXITO", "NUEVA API KEY INGRESADA",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "LA API KEY INGRESADA NO ES VALIDA", "REGISTRANDO NUEVA API KEY",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -766,6 +845,7 @@ public class ConvertidorJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_CAPACIDAD;
     private javax.swing.JButton jButton_CERRAR;
     private javax.swing.JButton jButton_LONGITUD;
